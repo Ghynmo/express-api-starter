@@ -7,6 +7,6 @@ router.get("/", controller.readAll);
 router.get("/:id", controller.readOne);
 router.post("/", controller.create);
 router.patch("/:id", controller.update);
-router.delete("/:id", controller.destroy);
+router.delete("/", controller.destroy);
 
 export default router;
