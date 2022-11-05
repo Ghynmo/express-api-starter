@@ -8,8 +8,8 @@ export const update = async (
   res: Response,
   next: NextFunction
 ) => {
+  const id = req?.params?.id;
   try {
-    const id = req?.params?.id;
     const filter = {
       _id: new ObjectId(id),
     };
@@ -20,12 +20,10 @@ export const update = async (
     })) as User;
 
     if (user) {
-      res.status(200).send(user);
+      res.status(200).send(`Successfully updated user with id ${id}`);
     }
   } catch (error) {
-    res
-      .status(404)
-      .send(`Unable to find matching document with id: ${req.params.id}`);
+    res.status(304).send(`User with id: ${id} not updated`);
     next(error);
   }
 };

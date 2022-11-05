@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { allCollections } from "@src/databases/connection.js";
-import { User } from "@src/models/user.js";
+// import { User } from "@src/models/user.js";
 
 export const create = async (
   req: Request,
@@ -10,15 +10,15 @@ export const create = async (
   try {
     const query = req.body;
 
-    const user = (await allCollections.users.insertOne(query)) as User;
+    const result = await allCollections.users.insertOne(query);
 
-    if (user) {
-      res.status(200).send(user);
+    if (result) {
+      res
+        .status(201)
+        .send(`Successfully created a new user with id ${result.insertedId}`);
     }
   } catch (error) {
-    res
-      .status(404)
-      .send(`Unable to find matching document with id: ${req.params.id}`);
+    res.status(500).send("Failed to create a new user.");
     next(error);
   }
 };

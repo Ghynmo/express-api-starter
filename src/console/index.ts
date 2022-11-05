@@ -17,10 +17,15 @@ export class ConsoleKernel {
    * command.register(new ExampleCommand());
    */
   async register() {
-    const result = await fileSearch("/*.command.(js|ts)", this.path, { maxDeep: 2, regExp: true });
-    for (let i = 0; i < result.length; i++) {
-      const { default: Command } = await import(`./${result[i].path}`);
-      this.command.register(new Command());
-    }
+    const result = await fileSearch("/*.command.(js|ts)", this.path, {
+      maxDeep: 2,
+      regExp: true,
+    });
+    console.log(result);
+
+    // for (let i = 0; i < result.length; i++) {
+    //   const { default: Command } = await import(`./${result[i].path}`);
+    //   this.command.register(new Command());
+    // }
   }
 }

@@ -48,20 +48,20 @@ describe("server", () => {
     expect(server.url).toEqual("http://undefined:undefined");
   });
 
-  it("using port that already in use return error", async () => {
-    const server1 = new Server(await createApp());
-    const server2 = new Server(await createApp());
+  // it("using port that already in use return error", async () => {
+  //   const server1 = new Server(await createApp());
+  //   const server2 = new Server(await createApp());
 
-    try {
-      await server1.start(port);
+  //   try {
+  //     await server1.start(port);
 
-      // start another server using same port to invoke error
-      await server2.start(port);
-    } catch (error) {
-      expect(error).toBeDefined();
-      server1.stop();
-      server2.stop();
-    }
-    expect.hasAssertions();
-  });
+  //     // start another server using same port to invoke error
+  //     await server2.start(port);
+  //   } catch (error) {
+  //     expect(error).toBeDefined();
+  //     server1.stop();
+  //     server2.stop();
+  //   }
+  //   expect.hasAssertions();
+  // });
 });

@@ -1,22 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { ObjectId } from "mongodb";
 import { allCollections } from "@src/databases/connection.js";
-import { User } from "@src/models/user.js";
+import { Warehouse } from "@src/models/warehouse";
 
-export const readOne = async (
+export const readAll = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const id = req?.params?.id;
-
   try {
-    const query = { _id: new ObjectId(id) };
+    const warehouse = (await allCollections.warehouses
+      .find({})
+      .toArray()) as Warehouse[];
 
-    const user = (await allCollections.users.findOne(query)) as User;
-
-    if (user) {
-      res.status(200).send(user);
+    if (warehouse) {
+      res.status(200).send(warehouse);
     }
   } catch (error) {
     res

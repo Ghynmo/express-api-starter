@@ -14,17 +14,21 @@ describe("end to end testing", () => {
   });
   it("read one", async () => {
     const app = await createApp();
-    const response = await request(app).get("/v1/user/1");
+    const response = await request(app).get(
+      "/v1/user/634a1236b2deb4aa87ff79af"
+    );
     expect(response.statusCode).toEqual(200);
   });
   it("update", async () => {
     const app = await createApp();
-    const response = await request(app).patch("/v1/user/1");
+    const response = await request(app).patch(
+      "/v1/user/634a1236b2deb4aa87ff79af"
+    );
     expect(response.statusCode).toEqual(200);
   });
   it("destroy", async () => {
     const app = await createApp();
-    const response = await request(app).delete("/v1/user/1");
-    expect(response.statusCode).toEqual(204);
+    const response = await request(app).delete("/v1/user");
+    expect(response.statusCode).toEqual(202);
   });
 });

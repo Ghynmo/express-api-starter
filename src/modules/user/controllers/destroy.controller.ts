@@ -9,22 +9,20 @@ export const destroy = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const newUrl = url;
-    const url_parts = newUrl.parse(req.url, true);
-    const id = url_parts.query._id as string;
+  const newUrl = url;
+  const url_parts = newUrl.parse(req.url, true);
+  const id = url_parts.query._id as string;
 
+  try {
     const query = { _id: new ObjectId(id) };
 
     const user = (await allCollections.users.deleteOne(query)) as User;
 
     if (user) {
-      res.status(200).send(user);
+      res.status(202).send(`Successfully removed user with id ${id}`);
     }
   } catch (error) {
-    res
-      .status(404)
-      .send(`Unable to find matching document with id: ${req.params.id}`);
+    res.status(400).send(`Failed to remove game with id ${id}`);
     next(error);
   }
 };
